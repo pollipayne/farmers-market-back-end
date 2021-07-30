@@ -17,7 +17,7 @@ export class Server {
   }
 
   public configuration() {
-    this.app.set('port', process.env.PORT || 3000)
+    this.app.set('port', process.env.PORT || 3001)
     this.app.use(express.json())
   }
 
@@ -38,6 +38,7 @@ export class Server {
       logging: false
     }).then((connection) => {
       console.log(connection.options)
+
       // here you can start to work with your entities
     }).catch((error) => {
       console.log(error)
@@ -46,7 +47,7 @@ export class Server {
 
     this.usersController = new UsersController();
     this.app.get('/', (req: Request, res: Response) => {
-      res.send("helloooooooooo")
+      res.send("LOOK AT ME I'M A HOME PAGE ENDPOINT!!!!!")
     })
     this.app.use(`/users/`, this.usersController.router); // configure routes of the users controller
 
