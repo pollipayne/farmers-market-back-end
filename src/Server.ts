@@ -2,12 +2,14 @@
 import express, { Request, Response } from 'express';
 import { UsersController } from './controllers/UsersController';
 import { createConnection } from 'typeorm';
+import { MarketController } from './controllers/MarketController';
 
 
 
 export class Server {
   private app: express.Application;
   private usersController: UsersController;
+  private marketsController: MarketController;
 
   constructor() {
     this.app = express();
@@ -22,7 +24,6 @@ export class Server {
   }
 
   public async routes() {
-    // await initializeDB();
     await createConnection({
       name: 'user',
       type: "postgres",
@@ -46,10 +47,12 @@ export class Server {
     );
 
     this.usersController = new UsersController();
+    this.marketsController = new MarketController();
     this.app.get('/', (req: Request, res: Response) => {
       res.send("LOOK AT ME I'M A HOME PAGE ENDPOINT!!!!!")
     })
-    this.app.use(`/users/`, this.usersController.router); // configure routes of the users controller
+    this.app.use(`/users/`, this.usersController.router);
+    this.app.use(`/markets/`, this.marketsController.router) // configure routes of the users controller
 
   }
 
