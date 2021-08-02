@@ -19,6 +19,8 @@ export class Server {
     this.routes();
   }
 
+
+
   public configuration() {
     this.app.set('port', process.env.PORT || 3001)
     this.app.use(function (req: Request, res: Response, next) {
@@ -56,7 +58,7 @@ export class Server {
     this.usersController = new UsersController();
     this.marketsController = new MarketController();
     this.app.get('/', (req: Request, res: Response) => {
-      res.send("LOOK AT ME I'M A HOME PAGE ENDPOINT!!!!!")
+      res.send('IM A HOME PAGE')
     })
     this.app.use(`/users/`, this.usersController.router);
     this.app.use(`/markets/`, this.marketsController.router) // configure routes of the users controller
