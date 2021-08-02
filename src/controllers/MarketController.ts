@@ -15,7 +15,8 @@ export class MarketController {
   }
   public index = async (req: Request, res: Response) => {
     const markets = await this.marketService.index();
-    res.send(markets).json();
+    // res.send(markets).json(); ///WHY WOULD YOU TELL ME TO DO THIS???? 
+    res.json(markets);
   }
 
   public create = async (req: Request, res: Response) => {

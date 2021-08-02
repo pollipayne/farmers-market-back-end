@@ -1,8 +1,9 @@
 
-import express, { Request, Response } from 'express';
+import express, { request, Request, Response } from 'express';
 import { UsersController } from './controllers/UsersController';
 import { createConnection } from 'typeorm';
 import { MarketController } from './controllers/MarketController';
+import cors from 'cors';
 
 
 
@@ -20,6 +21,12 @@ export class Server {
 
   public configuration() {
     this.app.set('port', process.env.PORT || 3001)
+    this.app.use(function (req: Request, res: Response, next) {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      next();
+    })
+    this.app.use(cors())
     this.app.use(express.json())
   }
 
