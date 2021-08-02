@@ -3,19 +3,16 @@ import { Market } from './Market'
 
 
 @Entity()
-export class User {
+export class Vendor {
   @PrimaryGeneratedColumn()
   id!: number;
   @Column()
-  email?: string;
+  vendorName?: string;
   @Column()
-  firstName?: string;
+  vendorLocation?: string;
   @Column()
-  isLoggedIn!: boolean;
+  vendorSeason?: string;
 
-  @ManyToMany(type => Market, market => market.users, {
-    cascade: true
-  })
-  @JoinTable()
+  @ManyToMany(type => Market, market => market.vendors)
   markets?: Market[];
 }

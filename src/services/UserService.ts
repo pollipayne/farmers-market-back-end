@@ -21,12 +21,12 @@ export class UserService {
   }
   public update = async (user: User, id: number) => {
     const updatedUser = await this.userRepository.update(id, user);
-    return `User ${user.firstName} has been updated.`;
+    return updatedUser;
   }
 
   public delete = async (id: number) => {
     const deletedUser = await this.userRepository.delete(id);
-    return `User with ${id} ID has been deleted.`;
+    return id;
   }
 };
 

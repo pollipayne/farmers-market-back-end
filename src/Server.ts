@@ -4,6 +4,7 @@ import { UsersController } from './controllers/UsersController';
 import { createConnection } from 'typeorm';
 import { MarketController } from './controllers/MarketController';
 import cors from 'cors';
+import { VendorController } from './controllers/VendorController';
 
 
 
@@ -11,11 +12,11 @@ export class Server {
   private app: express.Application;
   private usersController: UsersController;
   private marketsController: MarketController;
+  private vendorController: VendorController
 
   constructor() {
     this.app = express();
     this.configuration();
-    // this.usersController = new UsersController();
     this.routes();
   }
 
@@ -55,11 +56,13 @@ export class Server {
 
     this.usersController = new UsersController();
     this.marketsController = new MarketController();
+    this.vendorController = new VendorController();
     this.app.get('/', (req: Request, res: Response) => {
       res.send("LOOK AT ME I'M A HOME PAGE ENDPOINT!!!!!")
     })
     this.app.use(`/users/`, this.usersController.router);
-    this.app.use(`/markets/`, this.marketsController.router) // configure routes of the users controller
+    this.app.use(`/markets/`, this.marketsController.router)
+    this.app.use(`/vendors/`, this.vendorController.router) // configure routes of the users controller
 
   }
 
