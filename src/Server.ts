@@ -1,13 +1,16 @@
 
-import express, { Request, Response } from 'express';
+import express, { request, Request, Response } from 'express';
 import { UsersController } from './controllers/UsersController';
 import { createConnection } from 'typeorm';
+import { MarketController } from './controllers/MarketController';
+import cors from 'cors';
 
 
 
 export class Server {
   private app: express.Application;
   private usersController: UsersController;
+  private marketsController: MarketController;
 
   constructor() {
     this.app = express();
@@ -17,12 +20,17 @@ export class Server {
   }
 
   public configuration() {
-    this.app.set('port', process.env.PORT || 3000)
+    this.app.set('port', process.env.PORT || 3001)
+    this.app.use(function (req: Request, res: Response, next) {
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      next();
+    })
+    this.app.use(cors())
     this.app.use(express.json())
   }
 
   public async routes() {
-    // await initializeDB();
     await createConnection({
       name: 'user',
       type: "postgres",
@@ -38,6 +46,7 @@ export class Server {
       logging: false
     }).then((connection) => {
       console.log(connection.options)
+
       // here you can start to work with your entities
     }).catch((error) => {
       console.log(error)
@@ -45,10 +54,12 @@ export class Server {
     );
 
     this.usersController = new UsersController();
+    this.marketsController = new MarketController();
     this.app.get('/', (req: Request, res: Response) => {
-      res.send("helloooooooooo")
+      res.send("LOOK AT ME I'M A HOME PAGE ENDPOINT!!!!!")
     })
-    this.app.use(`/users/`, this.usersController.router); // configure routes of the users controller
+    this.app.use(`/users/`, this.usersController.router);
+    this.app.use(`/markets/`, this.marketsController.router) // configure routes of the users controller
 
   }
 
