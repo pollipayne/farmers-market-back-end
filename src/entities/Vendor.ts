@@ -15,6 +15,10 @@ export class Vendor {
   @ManyToMany(type => Market, market => market.vendors)
   markets?: Market[];
 
-  @ManyToMany(type => Product, product => product.vendors)
+  @ManyToMany(type => Product, product => product.vendors, {
+    cascade: true
+  })
+
+  @JoinTable()
   products?: Product[]
 }
