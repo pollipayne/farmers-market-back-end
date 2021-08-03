@@ -10,9 +10,9 @@ import { VendorController } from './controllers/VendorController';
 
 export class Server {
   private app: express.Application;
-  private usersController: UsersController;
-  private marketsController: MarketController;
-  private vendorController: VendorController
+  private usersController?: UsersController;
+  private marketsController?: MarketController;
+  private vendorController?: VendorController
 
   constructor() {
     this.app = express();

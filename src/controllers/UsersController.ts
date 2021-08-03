@@ -23,6 +23,9 @@ export class UsersController {
     const newUser = await this.userService.create(user);
     res.send(newUser);
   }
+
+
+
   public update = async (req: Request, res: Response) => {
     const user = req['body'] as User;
     const id = req['params']['id'];

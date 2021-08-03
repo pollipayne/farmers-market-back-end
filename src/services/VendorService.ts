@@ -13,7 +13,9 @@ export class VendorService {
   }
 
   public index = async () => {
-    const vendors = await this.vendorRepository.find()
+    const vendors = await this.vendorRepository.find({
+      relations: ['markets']
+    })
     return vendors;
   }
   public create = async (vendors: Vendor) => {

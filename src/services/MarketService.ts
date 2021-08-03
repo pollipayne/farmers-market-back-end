@@ -13,9 +13,12 @@ export class MarketService {
   }
 
   public index = async () => {
-    const markets = await this.marketRepository.find()
+    const markets = await this.marketRepository.find({
+      relations: ['users', 'vendors']
+    })
     return markets;
   }
+
   public create = async (market: Market) => {
     const newMarket = await this.marketRepository.save(market);
     return newMarket;

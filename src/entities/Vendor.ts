@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
 import { Market } from './Market'
+import { Product } from './Product';
 
 
 @Entity()
@@ -9,10 +10,11 @@ export class Vendor {
   @Column()
   vendorName?: string;
   @Column()
-  vendorLocation?: string;
-  @Column()
   vendorSeason?: string;
 
   @ManyToMany(type => Market, market => market.vendors)
   markets?: Market[];
+
+  @ManyToMany(type => Product, product => product.vendors)
+  products?: Product[]
 }
