@@ -15,7 +15,7 @@ export class VendorController {
   }
   public index = async (req: Request, res: Response) => {
     const vendors = await this.vendorService.index();
-    res.send(vendors).json();
+    res.json(vendors);
   }
 
   public create = async (req: Request, res: Response) => {
