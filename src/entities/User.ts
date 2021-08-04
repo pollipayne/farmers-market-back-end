@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Market } from './Market'
+
 
 @Entity()
 export class User {
@@ -10,4 +12,10 @@ export class User {
   firstName?: string;
   @Column()
   isLoggedIn!: boolean;
+
+  @ManyToMany(type => Market, market => market.users, {
+    cascade: true
+  })
+  @JoinTable()
+  markets?: Market[];
 }

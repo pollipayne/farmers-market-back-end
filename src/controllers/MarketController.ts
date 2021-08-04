@@ -19,11 +19,19 @@ export class MarketController {
     res.json(markets);
   }
 
+  public singleIndex = async (req: Request, res: Response) => {
+    const id = req['params']['id']
+    const market = await this.marketService.singleIndex(Number(id));
+
+    res.json(market)
+  }
+
   public create = async (req: Request, res: Response) => {
     const market = req['body'] as Market;
     const newMarket = await this.marketService.create(market);
     res.send(newMarket);
   }
+
   public update = async (req: Request, res: Response) => {
     const market = req['body'] as Market;
     const id = req['params']['id'];
@@ -39,6 +47,7 @@ export class MarketController {
 
   public routes() {
     this.router.get('/', this.index);
+    this.router.get('/:id', this.singleIndex)
     this.router.post('/', this.create);
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete)

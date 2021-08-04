@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { User } from './User';
+import { Vendor } from './Vendor';
 
 @Entity()
 export class Market {
@@ -10,4 +12,16 @@ export class Market {
   marketLocation?: string;
   @Column()
   marketSeason?: string;
+
+  @ManyToMany(type => User, user => user.markets)
+  users?: User[];
+
+  @ManyToMany(type => Vendor, vendor => vendor.markets, {
+    cascade: true
+  })
+  @JoinTable()
+  vendors?: Vendor[]
 }
+
+
+
