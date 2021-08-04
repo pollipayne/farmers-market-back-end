@@ -7,9 +7,11 @@ import { MarketRepository } from '../repository/MarketRepository';
 
 export class UserService {
   private userRepository: UserRepository;
+  private marketRepository: MarketRepository
 
   constructor() {
     this.userRepository = getConnection('user').getCustomRepository(UserRepository)
+    this.marketRepository = getConnection('user').getCustomRepository(MarketRepository)
   }
 
   public index = async () => {
@@ -20,17 +22,25 @@ export class UserService {
     return users;
   }
 
+  public singleIndex = async (id: number) => {
+    const user = await this.userRepository.findOne(id, { relations: ['markets'] })
+    return user;
+  }
+
 
   public create = async (user: User) => {
     const newUser = await this.userRepository.save(user);
     return newUser;
   }
 
-  public addMarketToUser = async (user: User, marketId: number) => {
-    let marketRepository = new MarketRepository();
-    let market = await marketRepository.findOne(marketId);
+  public addMarketToUser = async (userID: number, marketId: number) => {
+    let user = await this.userRepository.findOne(userID, { relations: ['markets'] })
+    let market = await this.marketRepository.findOne(marketId, { relations: ['users', 'vendors'] });
     if (!market) {
       throw new Error("market with that ID not found")
+    }
+    if (!user) {
+      throw new Error("User with that ID not found ")
     }
     user.markets?.push(market)
     await this.userRepository.manager.save(user);

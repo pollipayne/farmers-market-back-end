@@ -18,7 +18,6 @@ export class Vendor {
   @ManyToMany(type => Product, product => product.vendors, {
     cascade: true
   })
-
   @JoinTable()
   products?: Product[]
 }
