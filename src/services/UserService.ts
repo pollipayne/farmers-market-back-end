@@ -33,19 +33,6 @@ export class UserService {
     return newUser;
   }
 
-  public addMarketToUser = async (userID: number, marketId: number) => {
-    let user = await this.userRepository.findOne(userID, { relations: ['markets'] })
-    let market = await this.marketRepository.findOne(marketId, { relations: ['users', 'vendors'] });
-    if (!market) {
-      throw new Error("market with that ID not found")
-    }
-    if (!user) {
-      throw new Error("User with that ID not found ")
-    }
-    user.markets?.push(market)
-    await this.userRepository.manager.save(user);
-  }
-
 
   public update = async (user: User, id: number) => {
     const updatedUser = await this.userRepository.update(id, user);
@@ -53,7 +40,10 @@ export class UserService {
   }
 
   public delete = async (id: number) => {
-    const deletedUser = await this.userRepository.delete(id);
+    const deletedUser = await this.userRepository.findOne(id)
+    if (deletedUser) {
+      const activeDelete = await this.userRepository.remove(deletedUser)
+    }
     return id;
   }
 };
