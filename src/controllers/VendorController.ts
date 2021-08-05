@@ -19,8 +19,9 @@ export class VendorController {
   }
 
   public create = async (req: Request, res: Response) => {
-    const vendor = req['body'] as Vendor;
-    const newVendor = await this.vendorService.create(vendor);
+    const vendor = req['body']['newVendor'] as Vendor;
+    const marketId = req['body']['marketId']
+    const newVendor = await this.vendorService.create(vendor, marketId);
     res.send(newVendor);
   }
   public update = async (req: Request, res: Response) => {

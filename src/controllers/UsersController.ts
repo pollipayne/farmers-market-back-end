@@ -31,11 +31,6 @@ export class UsersController {
     const newUser = await this.userService.create(user);
     res.send(newUser);
   }
-  // enpoint like.. http://localhost:3001/users/:id/markets
-  public addMarketToUser = async (req: Request, res: Response) => {
-    const market = req['body'] as Market;
-
-  }
 
 
   public update = async (req: Request, res: Response) => {
