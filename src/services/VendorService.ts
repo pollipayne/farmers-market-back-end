@@ -32,16 +32,20 @@ export class VendorService {
       throw new Error("Couldn't find associated market")
     }
     await this.vendorRepository.save(vendors);
-
     return newVendor;
   }
+
   public update = async (vendor: Vendor, id: number) => {
     const updatedMarket = await this.vendorRepository.update(id, vendor);
     return `Vendor ${vendor.vendorName} has been updated.`;
   }
 
   public delete = async (id: number) => {
-    const deletedVendor = await this.vendorRepository.delete(id);
-    return `vendor with ${id} ID has been deleted.`;
+    const deletedVendor = await this.vendorRepository.findOne(id)
+    if (deletedVendor) {
+      const activeDelete = await this.vendorRepository.remove(deletedVendor)
+
+    }
+    return deletedVendor;
   }
 };

@@ -49,7 +49,10 @@ export class MarketService {
   }
 
   public delete = async (id: number) => {
-    const deletedMarket = await this.marketRepository.delete(id);
+    const deletedMarket = await this.marketRepository.findOne(id)
+    if (deletedMarket) {
+      const activeDelete = await this.marketRepository.remove(deletedMarket)
+    }
     return `market with ${id} ID has been deleted.`;
   }
 };
