@@ -16,7 +16,7 @@ export class UsersController {
   }
   public index = async (req: Request, res: Response) => {
     const users = await this.userService.index();
-    res.send(users).json();
+    res.json(users);
   }
 
   public singleIndex = async (req: Request, res: Response) => {

@@ -27,8 +27,9 @@ export class MarketController {
   }
 
   public create = async (req: Request, res: Response) => {
-    const market = req['body'] as Market;
-    const newMarket = await this.marketService.create(market);
+    const market = req['body']['newMarket'] as Market;
+    const userID = req['body']['userId']
+    const newMarket = await this.marketService.create(market, userID);
     res.send(newMarket);
   }
 
