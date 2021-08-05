@@ -9,9 +9,11 @@ export class User {
   @Column()
   email?: string;
   @Column()
-  firstName?: string;
+  userName?: string;
   @Column()
   isLoggedIn!: boolean;
+  @Column()
+  password?: string
 
   @ManyToMany(type => Market, market => market.users, {
     cascade: true

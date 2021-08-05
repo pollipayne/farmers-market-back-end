@@ -22,7 +22,6 @@ export class VendorService {
   public create = async (vendors: Vendor, marketId: number) => {
     const newVendor = vendors
     const associatedMarket = await this.marketRepository.findOne(marketId)
-    // console.log(associatedMarket)
     if (associatedMarket && newVendor.markets) {
       newVendor.markets?.push(associatedMarket)
 
