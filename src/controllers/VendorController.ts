@@ -25,6 +25,14 @@ export class VendorController {
     res.json(vendor)
   }
 
+  public getOneRoute = async (req: Request, res: Response) => {
+    const id = req['params']['id']
+    const vendor = await this.vendorService.singleIndex(Number(id))
+
+    res.json(vendor)
+  }
+
+
   public create = async (req: Request, res: Response) => {
     const vendor = req['body']['newVendor'] as Vendor;
     const marketId = req['body']['marketId']
@@ -48,6 +56,7 @@ export class VendorController {
 
   public routes() {
     this.router.get('/', this.index);
+    this.router.get('/:id', this.getOneRoute)
     this.router.post('/', this.create);
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete)
