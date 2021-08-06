@@ -21,6 +21,11 @@ export class ProductService {
     return products;
   }
 
+  public singleIndex = async (id: number) => {
+    const product = await this.productRepository.findOne(id, { relations: ['vendors'] })
+    return product;
+  }
+
   public create = async (products: Product, vendorId: number) => {
     const newProduct = products
     const associatedVendor = await this.vendorRepository.findOne(vendorId)
@@ -33,7 +38,7 @@ export class ProductService {
     } else {
       throw new Error("Couldn't find associated user")
     }
-    await this.vendorRepository.save(products);
+    await this.productRepository.save(products);
     return newProduct;
   }
 

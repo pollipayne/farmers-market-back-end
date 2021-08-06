@@ -15,10 +15,16 @@ export class VendorService {
 
   public index = async () => {
     const vendors = await this.vendorRepository.find({
-      relations: ['markets']
+      relations: ['markets', 'products']
     })
     return vendors;
   }
+
+  public singleIndex = async (id: number) => {
+    const vendor = await this.vendorRepository.findOne(id, { relations: ['markets', 'products'] })
+    return vendor;
+  }
+
   public create = async (vendors: Vendor, marketId: number) => {
     const newVendor = vendors
     const associatedMarket = await this.marketRepository.findOne(marketId)

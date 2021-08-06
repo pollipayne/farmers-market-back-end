@@ -18,6 +18,13 @@ export class VendorController {
     res.json(vendors);
   }
 
+  public singleIndex = async (req: Request, res: Response) => {
+    const id = req['params']['id']
+    const vendor = await this.vendorService.singleIndex(Number(id));
+
+    res.json(vendor)
+  }
+
   public create = async (req: Request, res: Response) => {
     const vendor = req['body']['newVendor'] as Vendor;
     const marketId = req['body']['marketId']

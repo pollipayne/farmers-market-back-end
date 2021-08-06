@@ -15,15 +15,25 @@ export class ProductController {
   }
   public index = async (req: Request, res: Response) => {
     const products = await this.productService.index();
-    // res.send(products).json(); ///WHY WOULD YOU TELL ME TO DO THIS???? 
     res.json(products);
   }
 
+  public singleIndex = async (req: Request, res: Response) => {
+    const id = req['params']['id']
+    const product = await this.productService.singleIndex(Number(id));
+
+    res.json(product)
+  }
+
+
   public create = async (req: Request, res: Response) => {
-    const product = req['body'] as Product;
-    const newProduct = await this.productService.create(product);
+    const product = req['body']['newProduct'] as Product;
+    const vendorId = req['body']['vendorId']
+    const newProduct = await this.productService.create(product, vendorId);
     res.send(newProduct);
   }
+
+
   public update = async (req: Request, res: Response) => {
     const product = req['body'] as Product;
     const id = req['params']['id'];
