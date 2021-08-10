@@ -2,6 +2,7 @@ import { Request, Response, Router } from 'express';
 import { UserService } from '../services/UserService';
 import { User } from '../entities/User';
 import { Market } from '../entities/Market';
+import { OAuth2Client } from 'google-auth-library';
 
 
 
@@ -9,11 +10,14 @@ export class UsersController {
   public router: Router;
   public userService: UserService;
 
+
   constructor() {
     this.userService = new UserService();
     this.router = Router();
     this.routes();
   }
+
+
   public index = async (req: Request, res: Response) => {
     const users = await this.userService.index();
     res.json(users);
