@@ -16,6 +16,7 @@
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "google-auth-library": "^7.5.0",
     "nodemon": "^2.0.12",
     "pg": "^8.7.1",
     "reflect-metadata": "^0.1.13",
