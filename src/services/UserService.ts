@@ -27,10 +27,6 @@ export class UserService {
     return user;
   }
 
-  public singleAuth = async (email: string) => {
-    const user = await this.userRepository.findOne(email, { relations: ['markets'] })
-    return user;
-  }
 
 
   public create = async (user: User) => {
