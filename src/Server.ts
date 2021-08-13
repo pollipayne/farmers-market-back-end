@@ -29,7 +29,10 @@ export class Server {
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
       next();
     })
-    this.app.use(cors())
+    this.app.use(cors({
+      origin: "https://my-farmers-market-fe.herokuapp.com",
+      credentials: true
+    }))
     this.app.use(express.json())
   }
 
