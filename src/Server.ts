@@ -51,7 +51,6 @@ export class Server {
     }).then((connection) => {
       console.log(connection.options)
 
-      // here you can start to work with your entities
     }).catch((error) => {
       console.log(error)
     }
@@ -67,7 +66,7 @@ export class Server {
     this.app.use(`/users/`, this.usersController.router);
     this.app.use(`/markets/`, this.marketsController.router)
     this.app.use(`/vendors/`, this.vendorController.router)
-    this.app.use(`/products/`, this.productController.router) // configure routes of the users controller
+    this.app.use(`/products/`, this.productController.router)
 
   }
 
