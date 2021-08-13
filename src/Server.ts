@@ -43,7 +43,7 @@ export class Server {
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      url: "postgres://jvxpcknocllcav:afee2c468dd91bd95f572aec53d7c2548b4cf600ff3bc259459555e91217734f@ec2-3-237-55-151.compute-1.amazonaws.com:5432/ddcg7pfn0dlne0",
+      url: process.env.DATABASE_URL,
       entities: [
         'build/entities/*.js'
       ],
