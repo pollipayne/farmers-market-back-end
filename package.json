@@ -8,7 +8,7 @@
     "postinstall": "tsc",
     "watch:node": "nodemon ./build/Server.js",
     "watch-ts": "tsc -w",
-    "deploy": "git add . && git commit -m Heroku && git push heroku master"
+    "deploy": "git add . && git commit -m Heroku && git push heroku deploy1:main"
   },
   "author": "",
   "license": "ISC",
