@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./build/server.js",
+    "start": "node ./build/Server.js",
     "postinstall": "tsc",
-    "watch:node": "nodemon ./build/server.js",
+    "watch:node": "nodemon ./build/Server.js",
     "watch-ts": "tsc -w",
     "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
