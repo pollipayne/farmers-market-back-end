@@ -37,11 +37,12 @@ export class Server {
     await createConnection({
       name: 'user',
       type: "postgres",
-      host: "localhost",
+      host: "ec2-3-237-55-151.compute-1.amazonaws.com",
       port: 5432,
-      username: "postgres",
-      password: "postgres",
-      database: "market",
+      username: "ddcg7pfn0dlne0",
+      password: "afee2c468dd91bd95f572aec53d7c2548b4cf600ff3bc259459555e91217734f",
+      database: "ddcg7pfn0dlne0",
+      url: "postgres://jvxpcknocllcav:afee2c468dd91bd95f572aec53d7c2548b4cf600ff3bc259459555e91217734f@ec2-3-237-55-151.compute-1.amazonaws.com:5432/ddcg7pfn0dlne0",
       entities: [
         'build/entities/*.js'
       ],

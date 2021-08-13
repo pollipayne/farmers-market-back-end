@@ -1,13 +1,24 @@
 {
-  "name": "default",
   "type": "postgres",
-  "url": "postgres://postgres:postgres@hostname:5432/markets",
+  "host": "localhost",
+  "port": 3306,
   "username": "postgres",
   "password": "postgres",
   "database": "my-market",
-  "synchronize": false,
-  "logging": true,
+  "synchronize": true,
+  "logging": false,
   "entities": [
     "src/entities/**/*.ts"
+  ],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  },
+  "migrations": [
+    "src/migration/**/*.ts"
+  ],
+  "subscribers": [
+    "src/subscriber/**/*.ts"
   ]
 }
