@@ -27,6 +27,7 @@ export class Server {
     this.app.use(function (req: Request, res: Response, next) {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+      res.header('Access-Control-Allow-Credentials', 'true');
       next();
     })
     this.app.use(cors())
@@ -37,11 +38,13 @@ export class Server {
     await createConnection({
       name: 'user',
       type: "postgres",
-      host: "localhost",
+      host: process.env.DB_HOSTNAME,
       port: 5432,
-      username: "postgres",
-      password: "postgres",
-      database: "market",
+      ssl: { rejectUnauthorized: false },
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      url: process.env.DATABASE_URL,
       entities: [
         'build/entities/*.js'
       ],
@@ -50,7 +53,6 @@ export class Server {
     }).then((connection) => {
       console.log(connection.options)
 
-      // here you can start to work with your entities
     }).catch((error) => {
       console.log(error)
     }
@@ -66,7 +68,7 @@ export class Server {
     this.app.use(`/users/`, this.usersController.router);
     this.app.use(`/markets/`, this.marketsController.router)
     this.app.use(`/vendors/`, this.vendorController.router)
-    this.app.use(`/products/`, this.productController.router) // configure routes of the users controller
+    this.app.use(`/products/`, this.productController.router)
 
   }
 
