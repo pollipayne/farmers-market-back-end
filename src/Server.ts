@@ -16,11 +16,13 @@ export class Server {
   private vendorController?: VendorController
   private productController?: ProductController
 
+
   constructor() {
     this.app = express();
     this.configuration();
     this.routes();
   }
+
 
   public configuration() {
     this.app.set('port', process.env.PORT || 3001)
@@ -33,6 +35,7 @@ export class Server {
     this.app.use(cors())
     this.app.use(express.json())
   }
+
 
   public async routes() {
     await createConnection({
@@ -52,12 +55,10 @@ export class Server {
       logging: false
     }).then((connection) => {
       console.log(connection.options)
-
     }).catch((error) => {
       console.log(error)
     }
     );
-
     this.usersController = new UsersController();
     this.marketsController = new MarketController();
     this.vendorController = new VendorController();
@@ -69,15 +70,17 @@ export class Server {
     this.app.use(`/markets/`, this.marketsController.router)
     this.app.use(`/vendors/`, this.vendorController.router)
     this.app.use(`/products/`, this.productController.router)
-
   }
+
 
   public start() {
     this.app.listen(this.app.get('port'), () => {
       console.log(`Server is listening at port ${this.app.get('port')}.`)
     })
   }
-}
+
+
+};
 
 const server = new Server();
 server.start();

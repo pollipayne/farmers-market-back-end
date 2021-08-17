@@ -1,18 +1,20 @@
 import { getConnection, getRepository } from 'typeorm';
 import { Market } from '../entities/Market';
 import { UserRepository } from '../repository/userRepository';
-
-
 import { MarketRepository } from '../repository/MarketRepository';
+
+
 
 export class MarketService {
   private marketRepository: MarketRepository;
   private userRepository: UserRepository
 
+
   constructor() {
     this.marketRepository = getConnection('user').getCustomRepository(MarketRepository)
     this.userRepository = getConnection('user').getCustomRepository(UserRepository)
   }
+
 
   public index = async () => {
     const markets = await this.marketRepository.find({
@@ -20,6 +22,7 @@ export class MarketService {
     })
     return markets;
   }
+
 
   public singleIndex = async (id: number) => {
     const market = await this.marketRepository.findOne(id, { relations: ['users', 'vendors'] })
@@ -32,7 +35,6 @@ export class MarketService {
     const associatedUser = await this.userRepository.findOne(userID)
     if (associatedUser && newMarket.users) {
       newMarket.users.push(associatedUser)
-
     } else if (associatedUser) {
       newMarket.users = []
       newMarket.users.push(associatedUser)
@@ -43,10 +45,12 @@ export class MarketService {
     return newMarket;
   }
 
+
   public update = async (market: Market, id: number) => {
     const updatedMarket = await this.marketRepository.update(id, market);
     return `market ${market.marketName} has been updated.`;
   }
+
 
   public delete = async (id: number) => {
     const deletedMarket = await this.marketRepository.findOne(id)
@@ -55,4 +59,6 @@ export class MarketService {
     }
     return `market with ${id} ID has been deleted.`;
   }
+
+
 };

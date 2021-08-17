@@ -10,7 +10,6 @@ export class Product {
   productName?: string;
   @Column()
   productSeason?: string;
-
   @ManyToMany(type => Vendor, vendor => vendor.products)
   vendors?: Vendor[];
 }

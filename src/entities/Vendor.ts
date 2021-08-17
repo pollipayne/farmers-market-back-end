@@ -11,13 +11,11 @@ export class Vendor {
   vendorName?: string;
   @Column()
   vendorSeason?: string;
-
   @ManyToMany(type => Market, market => market.vendors)
   markets?: Market[];
-
   @ManyToMany(type => Product, product => product.vendors, {
     cascade: true
   })
   @JoinTable()
   products?: Product[]
-}
+};

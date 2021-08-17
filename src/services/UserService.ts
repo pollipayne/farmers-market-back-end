@@ -1,32 +1,33 @@
 import { getConnection } from 'typeorm';
 import { User } from '../entities/User';
-
-
 import { UserRepository } from '../repository/userRepository';
 import { MarketRepository } from '../repository/MarketRepository';
+
+
 
 export class UserService {
   private userRepository: UserRepository;
   private marketRepository: MarketRepository
+
 
   constructor() {
     this.userRepository = getConnection('user').getCustomRepository(UserRepository)
     this.marketRepository = getConnection('user').getCustomRepository(MarketRepository)
   }
 
+
   public index = async () => {
     const users = await this.userRepository.find({
       relations: ['markets']
-    }
-    )
+    })
     return users;
   }
+
 
   public singleIndex = async (id: number) => {
     const user = await this.userRepository.findOne(id, { relations: ['markets'] })
     return user;
   }
-
 
 
   public create = async (user: User) => {
@@ -40,6 +41,7 @@ export class UserService {
     return updatedUser;
   }
 
+
   public delete = async (id: number) => {
     const deletedUser = await this.userRepository.findOne(id)
     if (deletedUser) {
@@ -47,5 +49,7 @@ export class UserService {
     }
     return id;
   }
+
+
 };
 

@@ -8,20 +8,23 @@ export class ProductController {
   public router: Router;
   public productService: ProductService;
 
+
   constructor() {
     this.productService = new ProductService();
     this.router = Router();
     this.routes();
   }
+
+
   public index = async (req: Request, res: Response) => {
     const products = await this.productService.index();
     res.json(products);
   }
 
+
   public singleIndex = async (req: Request, res: Response) => {
     const id = req['params']['id']
     const product = await this.productService.singleIndex(Number(id));
-
     res.json(product)
   }
 
@@ -37,13 +40,11 @@ export class ProductController {
   public update = async (req: Request, res: Response) => {
     const product = req['body'] as Product;
     const id = req['params']['id'];
-
     res.send(this.productService.update(product, Number(id)));
   }
 
   public delete = async (req: Request, res: Response) => {
     const id = req['params']['id'];
-
     res.send(this.productService.delete(Number(id)));
   }
 
@@ -53,4 +54,6 @@ export class ProductController {
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete)
   }
-}
+
+
+};

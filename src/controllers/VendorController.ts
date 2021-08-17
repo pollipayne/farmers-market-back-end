@@ -8,27 +8,30 @@ export class VendorController {
   public router: Router;
   public vendorService: VendorService;
 
+
   constructor() {
     this.vendorService = new VendorService();
     this.router = Router();
     this.routes();
   }
+
+
   public index = async (req: Request, res: Response) => {
     const vendors = await this.vendorService.index();
     res.json(vendors);
   }
 
+
   public singleIndex = async (req: Request, res: Response) => {
     const id = req['params']['id']
     const vendor = await this.vendorService.singleIndex(Number(id));
-
     res.json(vendor)
   }
+
 
   public getOneRoute = async (req: Request, res: Response) => {
     const id = req['params']['id']
     const vendor = await this.vendorService.singleIndex(Number(id))
-
     res.json(vendor)
   }
 
@@ -44,15 +47,15 @@ export class VendorController {
   public update = async (req: Request, res: Response) => {
     const vendor = req['body'] as Vendor;
     const id = req['params']['id'];
-
     res.send(this.vendorService.update(vendor, Number(id)));
   }
 
+
   public delete = async (req: Request, res: Response) => {
     const id = req['params']['id'];
-
     res.send(this.vendorService.delete(Number(id)));
   }
+
 
   public routes() {
     this.router.get('/', this.index);
@@ -61,6 +64,8 @@ export class VendorController {
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete)
   }
-}
+
+
+};
 
 

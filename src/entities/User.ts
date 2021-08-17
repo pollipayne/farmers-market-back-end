@@ -14,7 +14,6 @@ export class User {
   isLoggedIn!: boolean;
   @Column()
   password?: string
-
   @ManyToMany(type => Market, market => market.users, {
     cascade: true
   })
