@@ -8,23 +8,26 @@ export class MarketController {
   public router: Router;
   public marketService: MarketService;
 
+
   constructor() {
     this.marketService = new MarketService();
     this.router = Router();
     this.routes();
   }
+
+
   public index = async (req: Request, res: Response) => {
     const markets = await this.marketService.index();
-    // res.send(markets).json(); ///WHY WOULD YOU TELL ME TO DO THIS???? 
     res.json(markets);
   }
+
 
   public singleIndex = async (req: Request, res: Response) => {
     const id = req['params']['id']
     const market = await this.marketService.singleIndex(Number(id));
-
     res.json(market)
   }
+
 
   public create = async (req: Request, res: Response) => {
     const market = req['body']['newMarket'] as Market;
@@ -33,16 +36,16 @@ export class MarketController {
     res.send(newMarket);
   }
 
+
   public update = async (req: Request, res: Response) => {
     const market = req['body'] as Market;
     const id = req['params']['id'];
-
     res.send(this.marketService.update(market, Number(id)));
   }
 
+
   public delete = async (req: Request, res: Response) => {
     const id = req['params']['id'];
-
     res.send(this.marketService.delete(Number(id)));
   }
 
@@ -53,7 +56,9 @@ export class MarketController {
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete)
   }
-}
+
+
+};
 
 
 

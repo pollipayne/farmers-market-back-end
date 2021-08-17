@@ -1,8 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { UserService } from '../services/UserService';
 import { User } from '../entities/User';
-import { Market } from '../entities/Market';
-import { OAuth2Client } from 'google-auth-library';
 
 
 
@@ -23,12 +21,13 @@ export class UsersController {
     res.json(users);
   }
 
+
   public singleIndex = async (req: Request, res: Response) => {
     const id = req['params']['id']
     const user = await this.userService.singleIndex(Number(id));
-
     res.json(user)
   }
+
 
   public create = async (req: Request, res: Response) => {
     const user = req['body'] as User;
@@ -40,15 +39,15 @@ export class UsersController {
   public update = async (req: Request, res: Response) => {
     const user = req['body'] as User;
     const id = req['params']['id'];
-
     res.send(this.userService.update(user, Number(id)));
   }
 
+
   public delete = async (req: Request, res: Response) => {
     const id = req['params']['id'];
-
     res.send(this.userService.delete(Number(id)));
   }
+
 
   public routes() {
     this.router.get('/', this.index);
@@ -57,7 +56,9 @@ export class UsersController {
     this.router.put('/:id', this.update);
     this.router.delete('/:id', this.delete)
   }
-}
+
+
+};
 
 
 

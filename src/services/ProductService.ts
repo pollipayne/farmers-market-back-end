@@ -1,18 +1,20 @@
-import { getConnection, getRepository } from 'typeorm';
+import { getConnection } from 'typeorm';
 import { Product } from '../entities/Product';
-
 import { VendorRepository } from '../repository/VendorRepository';
 import { ProductRepository } from '../repository/ProductRepository';
+
+
 
 export class ProductService {
   private productRepository: ProductRepository;
   private vendorRepository: VendorRepository
 
+
   constructor() {
     this.productRepository = getConnection('user').getCustomRepository(ProductRepository)
     this.vendorRepository = getConnection('user').getCustomRepository(VendorRepository)
-
   }
+
 
   public index = async () => {
     const products = await this.productRepository.find({
@@ -21,17 +23,18 @@ export class ProductService {
     return products;
   }
 
+
   public singleIndex = async (id: number) => {
     const product = await this.productRepository.findOne(id, { relations: ['vendors'] })
     return product;
   }
+
 
   public create = async (products: Product, vendorId: number) => {
     const newProduct = products
     const associatedVendor = await this.vendorRepository.findOne(vendorId)
     if (associatedVendor && newProduct.vendors) {
       newProduct.vendors.push(associatedVendor)
-
     } else if (associatedVendor) {
       newProduct.vendors = []
       newProduct.vendors.push(associatedVendor)
@@ -42,10 +45,12 @@ export class ProductService {
     return newProduct;
   }
 
+
   public update = async (product: Product, id: number) => {
     const updatedMarket = await this.productRepository.update(id, product);
     return `Product ${product.productName} has been updated.`;
   }
+
 
   public delete = async (id: number) => {
     const deletedProduct = await this.productRepository.findOne(id)
@@ -54,4 +59,6 @@ export class ProductService {
     }
     return deletedProduct;
   }
+
+
 };
