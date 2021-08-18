@@ -113,14 +113,14 @@ To get a local copy up and running follow these simple steps.
 
 The structure for the 'Markets' route shown below. The models for Users, Vendors, and Products follow a similar pattern. 
 
-* **RootURL**:  <a href="https://cryptic-fjord-56843.herokuapp.com/">https://cryptic-fjord-56843.herokuapp.com/</a>
+
 
 **Markets Route**
 
 
 * **URL**
 
-  '/markets'
+  '/markets' <br>
   '/markets/:id'
 
 * **Method:**
